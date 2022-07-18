@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    
+    <title>Number Facts</title>
+</head>
+<style>
+    .row{
+        display:none;
+
+    }
+    .images
+    {
+        display:flex;
+        background-color: white;
+    }
+    .image,.image1{
+        width:6.25em;;
+        margin-left:3.125em;;
+        margin-right:6.25em;
+        height:6.25em;
+    }
+    h3,h6{
+             text-align:center;
+    }
+    .container{
+        text-align:center;
+    }
+    button{
+       margin-top:16em;
+        background-color: brown;
+        width:14em;
+        height:7em;
+        color:yellow;
+    }
+</style>
+<body class="bg-success">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card bg-dark text-warning mt-5 p-4">
+                   <h3>Match Info:</h3>
+                    <div class="card-body">
+                        <div class="images">
+                      <img class="image" src="">
+                      <img class="image1" src="">
+                    </div>
+                    <br>
+                      <h6 class="name"></h5>
+                      <h6 class="venue"> </h5>
+                      <h6 class="date"> </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card bg-dark text-warning mt-5 p-4">
+                   <h3>Match Info:</h3>
+                    <div class="card-body">
+                        <div class="images">
+                            <img class="image" src="">
+                            <img class="image1" src="">
+                          </div>
+                          <br>
+                      <h6 class="name"></h5>
+                      <h6 class="venue"> </h5>
+                      <h6 class="date"> </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card bg-dark text-warning mt-5 p-4">
+                   <h3>Match Info:</h3>
+                    <div class="card-body">
+                        <div class="images">
+                            <img class="image" src="">
+                            <img class="image1" src="">
+                          </div>
+                          <br>
+                      <h6 class="name"></h5>
+                      <h6 class="venue"> </h5>
+                      <h6 class="date"> </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card bg-dark text-warning mt-5 p-4">
+                   <h3>Match Info:</h3>
+                    <div class="card-body">
+                        <div class="images">
+                            <img class="image" src="">
+                            <img class="image1" src="">
+                          </div>
+                          <br>
+                      <h6 class="name"></h5>
+                      <h6 class="venue"> </h5>
+                      <h6 class="date"> </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="btn">Click Here for matches info</button>
+        
+    </div>
+
+    <script>
+        let row=document.querySelectorAll('.row');
+        let name=document.querySelectorAll('.name');
+        let venue=document.querySelectorAll('.venue');
+        let date=document.querySelectorAll('.date');
+        let image=document.querySelectorAll('.image');
+        let image1=document.querySelectorAll('.image1');
+        let btn=document.querySelector('#btn');
+        btn.addEventListener('click',getFactFetch);
+       
+        // Fetch with Fetch API
+        function getFactFetch() {
+            btn.style.display='none';
+                fetch('https://api.cricapi.com/v1/currentMatches?apikey=92afbf54-3408-4ee0-b09c-e795a83aebb8&offset=0')
+                    .then(response => response.json())
+                    .then(data => {
+                       for(let i=0;i<4;i++)
+                       { 
+                          row[i].style.display='block';
+                          image[i].src=data.data[i].teamInfo[0].img;
+                          image1[i].src=data.data[i].teamInfo[1].img;
+                          name[i].innerText=data.data[i].name;
+                          venue[i].innerText=data.data[i].venue;
+                          date[i].innerText=data.data[i].date;
+                       }
+                        console.log(data);
+                    })
+                    .catch(err => console.log(err));
+        }
+
+    </script>
+</body>
+
+</html>
